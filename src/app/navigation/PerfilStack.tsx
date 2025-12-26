@@ -1,23 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text } from 'react-native';
+import ProfileScreen from '../../features/usuario/screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
-
-function PerfilHome() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Perfil</Text>
-    </View>
-  );
-}
 
 export default function PerfilStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="PerfilHome"
-        component={PerfilHome}
-        options={{ title: 'Perfil' }}
+        name="Perfil"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

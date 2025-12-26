@@ -1,15 +1,29 @@
+import { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-
-import BottomTabs from './src/app/navigation/BottomTabs';
-import AuthStack from './src/app/navigation/AuthStack';
 import { useUserStore } from './src/features/usuario/store';
+import BottomTabs from './src/app/navigation/BottomTabs';
+import LoginScreen from './src/features/usuario/screens/LoginScreen';
+import { View, ActivityIndicator } from 'react-native';
 
 export default function App() {
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const { isLoggedIn, hydrate } = useUserStore();
+
+  useEffect(() => {
+    hydrate();
+  }, []);
+
+  // Loader mientras verifica storage
+  if (isLoggedIn === undefined) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>
-      {isLoggedIn ? <BottomTabs /> : <AuthStack />}
+      {isLoggedIn ? <BottomTabs /> : <LoginScreen />}
     </NavigationContainer>
   );
 }
